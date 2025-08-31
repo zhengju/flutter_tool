@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'second_page.dart'; // 导入second_page.dart
+import 'weather.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => FlutterPageA(),
         '/second': (context) => WebpageScreenshotApp(),
+        '/weather': (context) => WeatherPage(),
       },
       onGenerateRoute: (settings) {
         print('路由生成: ${settings.name}');
@@ -30,11 +32,21 @@ class FlutterPageA extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Flutter页面AAA')),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/second'); // 使用路由跳转
-          },
-          child: Text('跳转到页面B'),
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/weather'); // 使用路由跳转
+              },
+              child: Text('查询5天内天气'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/weather'); // 使用路由跳转
+              },
+              child: Text('跳转到页面B'),
+            ),
+          ],
         ),
       ),
     );

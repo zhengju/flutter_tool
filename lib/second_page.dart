@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -47,7 +48,7 @@ class _WebpageScreenshotPageState extends State<WebpageScreenshotPage> {
     try {
       // 调用iOS原生方法
       final result = await _channel.invokeMethod('openWebpage', {'url': url});
-      print('iOS返回结果: $result');
+      debugPrint('Debug: openWebpage invoked with url: $url, result: $result');
 
       if (result == 'success') {
         _showSnackBar('正在打开网页: $url');
@@ -55,7 +56,9 @@ class _WebpageScreenshotPageState extends State<WebpageScreenshotPage> {
         _showSnackBar('打开网页失败');
       }
     } catch (e) {
-      print('调用iOS方法错误: $e');
+      if (kDebugMode) {
+        print('调用iOS方法错误: $e');
+      }
       _showSnackBar('打开网页出错: $e');
     }
   }
@@ -83,9 +86,11 @@ class _WebpageScreenshotPageState extends State<WebpageScreenshotPage> {
               final result = await _channel.invokeMethod('dismiss', {
                 'url': "",
               });
-              print('iOS返回结果: $result');
+              if (kDebugMode) {
+                print('iOS返回结果: $result');
+              }
             } catch (e) {
-              print('调用iOS方法错误: $e');
+              debugPrint('调用iOS方法错误: $e');
               // Navigator.pop(context);
             }
           },
